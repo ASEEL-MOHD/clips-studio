@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "clips-kitty": {
+      "command": "python",
+      "args": ["-c", "import sys; from server.mcp import serve; sys.exit(serve())"]
+    }
+  }
+}
