@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--PAGE-->
+<title>Kada Films</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Kada Films is an independent film company from Kerala making commercials, short films and brand stories.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: stark black/white film-house. Full-bleed stills, a uniform poster grid,
+   one dark "feature" reel, and a giant wordmark to close. Single deliberate look. */
+:root {
+  --ink: #0b0b0a;          /* near-black, warm */
+  --paper: #f6f5f2;        /* off-white page */
+  --white: #ffffff;
+  --mute: #77736b;         /* warm grey for meta */
+  --line: #d9d6cf;         /* hairlines on paper */
+  --line-dark: #2a2926;    /* hairlines on ink */
+  --sodium: #f0a35e;       /* street-light amber, used once or twice */
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px), 3vw);
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px), 3vw);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+:focus-visible { outline: 2px solid var(--sodium); outline-offset: 3px; }
+.wrap { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.mono { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+
+/* film grain over everything */
+body::after {
+  content: ""; position: fixed; inset: -50%; z-index: 100; pointer-events: none; opacity: .07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1s steps(4) infinite;
+}
+@keyframes grain { 0%{transform:translate(0,0)} 25%{transform:translate(-3%,2%)} 50%{transform:translate(2%,-3%)} 75%{transform:translate(-2%,-1%)} }
+
+/* ---------- NAV ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 18px); padding-bottom: 18px;
+  color: var(--white); mix-blend-mode: difference;
+}
+.logo {
+  font-family: var(--display); font-weight: 900; font-stretch: 62%;
+  font-size: 34px; line-height: .8; letter-spacing: -.01em; text-transform: uppercase;
+  display: flex; align-items: baseline; gap: 6px;
+}
+.logo small { font-family: var(--mono); font-weight: 400; font-size: 10px; letter-spacing: .12em; }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: clamp(16px, 3vw, 40px); }
+.nav ul a {
+  font-weight: 700; font-stretch: 100%; font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+  background: linear-gradient(currentColor,currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s;
+  padding-bottom: 2px;
+}
+.nav ul a:hover { background-size: 100% 1px; }
+.menu-btn { display: none; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+
+/* ---------- HERO ---------- */
+.hero { position: relative; height: min(92svh, 900px); min-height: 520px; background: var(--ink); color: var(--white); overflow: hidden; }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
+.slide.on { opacity: 1; }
+.slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 8s linear; }
+.slide.on img { transform: scale(1); }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,.75) 100%); }
+.hero-copy {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding-bottom: clamp(24px, 5vw, 56px);
+  display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px;
+}
+.hero-meta { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sodium); box-shadow: 0 0 12px var(--sodium); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+.hero h1 {
+  margin: 0; font-family: var(--display); font-weight: 900; font-stretch: 62%;
+  font-size: clamp(72px, 15vw, 240px); line-height: .82; letter-spacing: -.015em; text-transform: uppercase;
+  text-wrap: balance;
+}
+.hero h1 span { display: block; transition: opacity .6s, transform .6s; }
+.hero h1.swap span { opacity: 0; transform: translateY(12px); }
+.hero-sub { margin-top: 16px; max-width: 46ch; font-size: 17px; color: rgba(255,255,255,.85); }
+.hero-side { display: flex; flex-direction: column; align-items: flex-end; gap: 18px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px;
+  border: 1px solid currentColor; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+  transition: background .25s, color .25s;
+}
+.hero .btn:hover { background: var(--white); color: var(--ink); }
+.counter { display: flex; gap: 6px; }
+.counter button { width: 34px; height: 3px; background: rgba(255,255,255,.3); position: relative; overflow: hidden; }
+.counter button::after { content: ""; position: absolute; inset: 0; background: var(--white); transform: scaleX(0); transform-origin: left; }
+.counter button.on::after { animation: fill 6s linear forwards; }
+@keyframes fill { to { transform: scaleX(1); } }
+
+/* ---------- TICKER ---------- */
+.ticker { background: var(--ink); color: var(--white); overflow: hidden; border-top: 1px solid var(--line-dark); }
+.ticker-track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
+.ticker-track span {
+  font-family: var(--display); font-weight: 800; font-stretch: 62%; text-transform: uppercase;
+  font-size: 30px; padding: 14px 0; white-space: nowrap;
+}
+.ticker-track span::after { content: "✱"; color: var(--sodium); margin: 0 28px; font-size: 18px; vertical-align: middle; }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+/* ---------- SECTION HEAD ---------- */
+section { padding-block: clamp(64px, 9vw, 120px); }
+.head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; border-bottom: 1px solid var(--ink); padding-bottom: 14px; }
+.head h2 {
+  margin: 0; font-family: var(--display); font-weight: 900; font-stretch: 62%;
+  font-size: clamp(48px, 8vw, 112px); line-height: .85; text-transform: uppercase; letter-spacing: -.01em;
+}
+
+/* ---------- FILTERS + GRID ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px;
+  font-size: 13px; font-weight: 600; transition: all .2s;
+}
+.filters button:hover { border-color: var(--ink); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3vw, 44px) clamp(14px, 2vw, 28px); }
+.card { display: block; text-align: left; width: 100%; }
+.card[hidden] { display: none !important; }
+.card .frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink); }
+.card img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2,.7,.2,1), filter .5s; }
+.card:hover img { transform: scale(1.04); filter: brightness(.7); }
+.card .view {
+  position: absolute; left: 16px; bottom: 16px; color: var(--white);
+  font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+  opacity: 0; transform: translateY(8px); transition: all .4s;
+}
+.card:hover .view, .card:focus-visible .view { opacity: 1; transform: none; }
+.card .tag { position: absolute; top: 14px; left: 14px; color: var(--white); background: rgba(0,0,0,.45); padding: 4px 8px; backdrop-filter: blur(4px); }
+.card h3 {
+  margin: 16px 0 4px; font-family: var(--display); font-weight: 900; font-stretch: 75%;
+  font-size: clamp(26px, 2.6vw, 38px); line-height: .95; text-transform: uppercase; letter-spacing: -.005em;
+}
+.card p { margin: 0; color: var(--mute); font-size: 14px; display: flex; justify-content: space-between; gap: 12px; }
+
+/* ---------- FEATURE (dark reel) ---------- */
+.feature { background: var(--ink); color: var(--white); }
+.feature .head { border-color: var(--white); }
+.feature-lede { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: end; margin-bottom: 48px; }
+.feature-lede p { margin: 0; font-size: clamp(20px, 2vw, 28px); line-height: 1.3; font-weight: 400; text-wrap: pretty; }
+.credits { display: grid; grid-template-columns: auto 1fr; gap: 8px 24px; margin: 0; color: rgba(255,255,255,.7); }
+.credits dt { color: var(--mute); }
+.credits dd { margin: 0; color: var(--white); }
+.strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.still .scope { aspect-ratio: 2.39 / 1; overflow: hidden; background: #000; }
+.still img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s; }
+.still:hover img { transform: scale(1.05); }
+.still figcaption { display: flex; justify-content: space-between; margin-top: 10px; color: var(--mute); }
+.still figcaption b { color: var(--white); font-weight: 500; }
+
+/* ---------- VERTICAL ---------- */
+.vertical { padding-bottom: clamp(48px, 7vw, 96px); }
+.rail { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 18px; scrollbar-width: thin; }
+.rail figure { margin: 0; flex: 0 0 clamp(200px, 22vw, 300px); scroll-snap-align: start; }
+.rail .tall { aspect-ratio: 9 / 16; overflow: hidden; background: var(--ink); }
+.rail img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s; }
+.rail figure:hover img { transform: scale(1.04); }
+.rail figcaption { margin-top: 10px; display: flex; justify-content: space-between; gap: 8px; }
+.rail figcaption span:last-child { color: var(--mute); }
+
+/* ---------- STUDIO ---------- */
+.studio { border-top: 1px solid var(--line); }
+.statement {
+  margin: 0 0 56px; font-family: var(--display); font-weight: 700; font-stretch: 85%;
+  font-size: clamp(30px, 4.6vw, 68px); line-height: 1.02; letter-spacing: -.02em; max-width: 20ch; text-wrap: balance;
+}
+.statement em { font-style: italic; font-weight: 300; }
+.services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--ink); }
+.services div { padding: 18px 18px 18px 0; border-right: 1px solid var(--line); }
+.services div + div { padding-left: 18px; }
+.services div:last-child { border-right: 0; }
+.services h4 { margin: 8px 0 6px; font-size: 20px; font-weight: 800; }
+.services p { margin: 0; color: var(--mute); font-size: 15px; max-width: 32ch; }
+.clients { margin-top: 64px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 36px; }
+.clients .mono { color: var(--mute); width: 100%; }
+.clients span:not(.mono) { font-family: var(--display); font-weight: 800; font-stretch: 70%; font-size: clamp(28px, 3.4vw, 46px); text-transform: uppercase; }
+
+/* ---------- FOOTER ---------- */
+footer { background: var(--ink); color: var(--white); padding-top: clamp(64px, 8vw, 110px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); overflow: hidden; }
+.contact { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 32px; }
+.contact h3 { margin: 0; font-size: clamp(26px, 3vw, 40px); font-weight: 700; line-height: 1.1; max-width: 18ch; }
+.contact .mono { color: var(--mute); margin-bottom: 10px; }
+.contact a.big { font-size: 20px; font-weight: 600; border-bottom: 1px solid var(--line-dark); padding-bottom: 4px; transition: border-color .2s; overflow-wrap: anywhere; }
+.contact a.big:hover { border-color: var(--sodium); }
+.contact ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 18px; }
+.contact ul a:hover { color: var(--sodium); }
+.wordmark {
+  margin: clamp(56px, 8vw, 100px) 0 0; font-family: var(--display); font-weight: 900; font-stretch: 62%;
+  font-size: 34.5vw; line-height: .74; letter-spacing: -.03em; text-transform: uppercase; white-space: nowrap;
+  margin-left: -.03em;
+}
+.legal { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 24px; color: var(--mute); }
+
+/* ---------- LIGHTBOX ---------- */
+dialog {
+  width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; padding: 0;
+  background: var(--ink); color: var(--white);
+}
+dialog::backdrop { background: rgba(0,0,0,.9); }
+.lb { height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding-top: calc(env(safe-area-inset-top, 0px) + 18px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 18px); gap: 18px; }
+.lb-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.lb-top h3 { margin: 0; font-family: var(--display); font-weight: 900; font-stretch: 62%; font-size: clamp(36px, 5vw, 64px); line-height: .9; text-transform: uppercase; }
+.lb-stage { position: relative; display: flex; align-items: center; justify-content: center; min-height: 0; }
+.lb-stage img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border: 1px solid rgba(255,255,255,.4); border-radius: 50%; display: grid; place-items: center; font-size: 20px; background: rgba(0,0,0,.35); }
+.lb-nav:hover { background: var(--white); color: var(--ink); }
+.lb-prev { left: 0; } .lb-next { right: 0; }
+.lb-foot { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px; align-items: end; }
+.lb-foot p { margin: 0; color: rgba(255,255,255,.8); max-width: 60ch; }
+.lb-foot .mono { color: var(--mute); text-align: right; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 960px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feature-lede, .contact { grid-template-columns: minmax(0, 1fr); }
+  .strip { grid-template-columns: minmax(0, 1fr); }
+  .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .services div:nth-child(2) { border-right: 0; }
+  .services div:nth-child(3) { padding-left: 0; border-top: 1px solid var(--line); }
+  .services div:nth-child(4) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 640px) {
+  .nav ul { display: none; }
+  .nav.open ul { display: flex; flex-direction: column; position: fixed; top: 64px; right: var(--gutter-r); gap: 14px; text-align: right; }
+  .nav.open ul a { font-size: 22px; }
+  .menu-btn { display: block; }
+  .hero-copy { grid-template-columns: minmax(0, 1fr); }
+  .hero-side { align-items: flex-start; }
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .services { grid-template-columns: minmax(0, 1fr); }
+  .services div, .services div + div { padding-left: 0; border-right: 0; border-top: 1px solid var(--line); }
+  .services div:first-child { border-top: 0; }
+  .lb-foot { grid-template-columns: minmax(0, 1fr); }
+  .lb-foot .mono { text-align: left; }
+  .lb-nav { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+<!--/HEAD-->
+</head>
+<body>
+
+<nav class="nav wrap" id="nav" aria-label="Main">
+  <a href="#top" class="logo" aria-label="Kada Films home">Kada <small>Films</small></a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#terminal-3">Featured</a></li>
+    <li><a href="#vertical">Vertical</a></li>
+    <li><a href="#studio">Studio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+</nav>
+
+<main id="top">
+  <!-- HERO -->
+  <header class="hero" aria-label="Now showing">
+    <div class="slide on" data-title="Terminal 3" data-meta="Short film · 2.39:1" data-sub="One man, one Maruti 800, and a city that only lights up after closing time." data-project="terminal-3">
+      <img src="images/terminal3-headlights.jpg" alt="A white Maruti 800 with headlights on outside the Terminal 3 store at night">
+    </div>
+    <div class="slide" data-title="Second Skin" data-meta="Commercial · DWRAPS" data-sub="A film about the people who wrap cars for a living, and the patience it takes." data-project="second-skin">
+      <img src="images/dwraps-showroom.jpg" alt="A dark green SUV in the white DWRAPS showroom">
+    </div>
+    <div class="slide" data-title="After Hours" data-meta="Short film · Night" data-sub="Rain on the glass, sodium light, and nowhere particular to be." data-project="terminal-3">
+      <img src="images/terminal3-driver.jpg" alt="A young man sitting at the wheel of a car at night, lit by orange neon">
+    </div>
+    <div class="slide" data-title="The Fitter" data-meta="Commercial · DWRAPS" data-sub="Blade, film, and a steady hand. Paint protection, shot close." data-project="second-skin">
+      <img src="images/dwraps-film.jpg" alt="A hand trimming paint protection film along a car's bodywork">
+    </div>
+
+    <div class="hero-copy wrap">
+      <div>
+        <div class="hero-meta mono"><i class="dot" aria-hidden="true"></i><span>Now showing</span><span id="heroMeta">Short film · 2.39:1</span></div>
+        <h1 id="heroTitle"><span>Terminal 3</span></h1>
+        <p class="hero-sub" id="heroSub">One man, one Maruti 800, and a city that only lights up after closing time.</p>
+      </div>
+      <div class="hero-side">
+        <button class="btn" id="heroOpen" data-project="terminal-3">View project <span aria-hidden="true">→</span></button>
+        <div class="counter" id="counter" aria-label="Choose slide"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Terminal 3</span><span>Second Skin</span><span>Green Machine</span><span>Rubber Roads</span><span>Number Eleven</span><span>Hunter</span>
+      <span>Terminal 3</span><span>Second Skin</span><span>Green Machine</span><span>Rubber Roads</span><span>Number Eleven</span><span>Hunter</span>
+    </div>
+  </div>
+
+  <!-- WORK GRID -->
+  <section id="work" class="wrap">
+    <div class="head">
+      <h2>Work</h2>
+      <div class="filters" role="group" aria-label="Filter work">
+        <button aria-pressed="true" data-filter="all">All</button>
+        <button aria-pressed="false" data-filter="film">Short films</button>
+        <button aria-pressed="false" data-filter="commercial">Commercials</button>
+        <button aria-pressed="false" data-filter="auto">Automotive</button>
+        <button aria-pressed="false" data-filter="sport">Sport</button>
+      </div>
+    </div>
+
+    <div class="grid" id="grid">
+      <button class="card" data-project="terminal-3" data-cats="film auto">
+        <div class="frame"><img src="images/terminal3-walk.jpg" alt="" style="object-position: 52% 50%" loading="lazy"><span class="tag mono">Short film</span><span class="view">View project →</span></div>
+        <h3>Terminal 3</h3>
+        <p><span>Original</span><span>2025</span></p>
+      </button>
+      <button class="card" data-project="second-skin" data-cats="commercial auto">
+        <div class="frame"><img src="images/dwraps-crew.jpg" alt="" style="object-position: 72% 50%" loading="lazy"><span class="tag mono">Commercial</span><span class="view">View project →</span></div>
+        <h3>Second Skin</h3>
+        <p><span>DWRAPS</span><span>2025</span></p>
+      </button>
+      <button class="card" data-project="green-machine" data-cats="auto">
+        <div class="frame"><img src="images/mini-green.jpg" alt="" loading="lazy"><span class="tag mono">Automotive</span><span class="view">View project →</span></div>
+        <h3>Green Machine</h3>
+        <p><span>Owner's film</span><span>2025</span></p>
+      </button>
+      <button class="card" data-project="rubber-roads" data-cats="commercial sport">
+        <div class="frame"><img src="images/cyclology.jpg" alt="" style="object-position: 50% 60%" loading="lazy"><span class="tag mono">Commercial</span><span class="view">View project →</span></div>
+        <h3>Rubber Roads</h3>
+        <p><span>Cyclology</span><span>2025</span></p>
+      </button>
+      <button class="card" data-project="number-eleven" data-cats="sport">
+        <div class="frame"><img src="images/eagles-football.jpg" alt="" style="object-position: 50% 40%" loading="lazy"><span class="tag mono">Sport</span><span class="view">View project →</span></div>
+        <h3>Number Eleven</h3>
+        <p><span>Eagles Club</span><span>2025</span></p>
+      </button>
+      <button class="card" data-project="hunter" data-cats="commercial auto">
+        <div class="frame"><img src="images/hunter-350.jpg" alt="" style="object-position: 40% 60%" loading="lazy"><span class="tag mono">Commercial</span><span class="view">View project →</span></div>
+        <h3>Hunter</h3>
+        <p><span>DWRAPS</span><span>2025</span></p>
+      </button>
+    </div>
+  </section>
+
+  <!-- FEATURE -->
+  <section id="terminal-3" class="feature">
+    <div class="wrap">
+      <div class="head">
+        <h2>Terminal 3</h2>
+        <span class="mono">Featured · Short film</span>
+      </div>
+      <div class="feature-lede">
+        <p>Shot over two wet nights outside a clothing store that closes at ten. We lit the street with what was already there: the neon sign, the shop windows and one pair of old headlights.</p>
+        <dl class="credits mono">
+          <dt>Format</dt><dd>Anamorphic 2.39:1</dd>
+          <dt>Runtime</dt><dd>04:12</dd>
+          <dt>Location</dt><dd>Kerala, India</dd>
+          <dt>Grade</dt><dd>Sodium / teal</dd>
+        </dl>
+      </div>
+      <div class="strip">
+        <figure class="still" style="margin:0"><div class="scope"><img src="images/terminal3-walk.jpg" alt="A man walks toward a parked Maruti 800 under orange neon" loading="lazy"></div><figcaption class="mono"><b>Sc. 01</b><span>00:00:14:08</span></figcaption></figure>
+        <figure class="still" style="margin:0"><div class="scope"><img src="images/terminal3-driver.jpg" alt="The driver in profile, rain on the window" loading="lazy"></div><figcaption class="mono"><b>Sc. 04</b><span>00:01:52:17</span></figcaption></figure>
+        <figure class="still" style="margin:0"><div class="scope"><img src="images/terminal3-headlights.jpg" alt="Headlights on, the car pulls out from the storefront" loading="lazy"></div><figcaption class="mono"><b>Sc. 07</b><span>00:03:40:02</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERTICAL -->
+  <section id="vertical" class="vertical wrap">
+    <div class="head">
+      <h2>Vertical</h2>
+      <span class="mono">9:16 · Made for the phone</span>
+    </div>
+    <div class="rail" tabindex="0" aria-label="Vertical frames, scroll sideways">
+      <figure><div class="tall"><img src="images/mini-leaves.jpg" alt="A matte green Mini seen through leaves" loading="lazy"></div><figcaption class="mono"><span>Green Machine</span><span>9:16</span></figcaption></figure>
+      <figure><div class="tall"><img src="images/eagles-football.jpg" alt="A footballer in a green Eagles Club jersey with the ball" loading="lazy"></div><figcaption class="mono"><span>Number Eleven</span><span>9:16</span></figcaption></figure>
+      <figure><div class="tall"><img src="images/cyclology.jpg" alt="Three cyclists stopped on a road through a rubber plantation" loading="lazy"></div><figcaption class="mono"><span>Rubber Roads</span><span>9:16</span></figcaption></figure>
+      <figure><div class="tall"><img src="images/hunter-350.jpg" alt="A black Royal Enfield Hunter 350 in a white showroom" loading="lazy"></div><figcaption class="mono"><span>Hunter</span><span>9:16</span></figcaption></figure>
+      <figure><div class="tall"><img src="images/mini-green.jpg" alt="A matte green Mini parked under trees" loading="lazy"></div><figcaption class="mono"><span>Green Machine</span><span>9:16</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section id="studio" class="studio wrap">
+    <div class="head" style="border:0; padding:0; margin-bottom:28px"><span class="mono">The studio</span></div>
+    <p class="statement">Kada is a small film company from Kerala. We make commercials, short films and brand stories <em>for people who care how a frame looks.</em></p>
+    <div class="services">
+      <div><span class="mono">Direction</span><h4>Idea to edit</h4><p>Concepts, scripts and shot lists, then on set until the last take.</p></div>
+      <div><span class="mono">Cinematography</span><h4>Light first</h4><p>Practical light, real locations, and lenses chosen for the story.</p></div>
+      <div><span class="mono">Post</span><h4>Edit &amp; colour</h4><p>Cutting, sound and a film-stock grade built for each project.</p></div>
+      <div><span class="mono">Social</span><h4>Vertical cuts</h4><p>Every shoot delivered in 9:16 for reels, with captions and music.</p></div>
+    </div>
+    <div class="clients">
+      <span class="mono">Made with</span>
+      <span>DWRAPS</span><span>Cyclology</span><span>Eagles Club</span><span>Badhar Bake</span><span>Terminal 3</span>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <h3>Have a film in mind? Tell us about it.</h3>
+      <div>
+        <div class="mono">New projects</div>
+        <a class="big" href="mailto:hello@kadafilms.com">hello@kadafilms.com</a>
+      </div>
+      <div>
+        <div class="mono">Follow</div>
+        <ul>
+          <li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram ↗</a></li>
+          <li><a href="https://youtube.com/" target="_blank" rel="noopener">YouTube ↗</a></li>
+          <li><a href="https://vimeo.com/" target="_blank" rel="noopener">Vimeo ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wordmark" aria-hidden="true">Kada</div>
+    <div class="legal mono"><span>© 2026 Kada Films</span><span>Kerala, India</span></div>
+  </div>
+</footer>
+
+<!-- PROJECT LIGHTBOX -->
+<dialog id="lb" aria-labelledby="lbTitle">
+  <div class="lb wrap">
+    <div class="lb-top">
+      <div><div class="mono" id="lbMeta" style="color:var(--mute); margin-bottom:6px"></div><h3 id="lbTitle"></h3></div>
+      <button class="btn" id="lbClose">Close ✕</button>
+    </div>
+    <div class="lb-stage">
+      <img id="lbImg" alt="">
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous still">←</button>
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Next still">→</button>
+    </div>
+    <div class="lb-foot">
+      <p id="lbText"></p>
+      <div class="mono" id="lbCount"></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var projects = {
+    "terminal-3": { title: "Terminal 3", meta: "Short film · 2025 · 2.39:1",
+      text: "One man, one Maruti 800, and a city that only lights up after closing time. Shot over two wet nights with practical light only.",
+      stills: [["terminal3-walk", "A man walks toward a parked Maruti 800"], ["terminal3-driver", "The driver in profile at night"], ["terminal3-headlights", "The car's headlights outside Terminal 3"]] },
+    "second-skin": { title: "Second Skin", meta: "Commercial · DWRAPS · 2025",
+      text: "A brand film for DWRAPS about the craft of paint protection and wraps: the crew, the film, and the finished car under showroom light.",
+      stills: [["dwraps-showroom", "A green SUV in the DWRAPS showroom"], ["dwraps-crew", "Two installers laying film over a bonnet"], ["dwraps-film", "Trimming paint protection film by hand"]] },
+    "green-machine": { title: "Green Machine", meta: "Automotive · 2025",
+      text: "A matte green Mini, shaded by mango trees. A slow, quiet portrait of a car and the person who keeps it.",
+      stills: [["mini-green", "A matte green Mini under trees"], ["mini-leaves", "The Mini framed through leaves"]] },
+    "rubber-roads": { title: "Rubber Roads", meta: "Commercial · Cyclology · 2025",
+      text: "Morning rides through the rubber plantations for Cyclology's new kit.",
+      stills: [["cyclology", "Three cyclists in Cyclology jerseys on a plantation road"]] },
+    "number-eleven": { title: "Number Eleven", meta: "Sport · Eagles Club · 2025",
+      text: "A matchday film for Eagles Club, sponsored by Badhar Bake. Grass, sweat and a worn-out ball.",
+      stills: [["eagles-football", "A footballer controls the ball"]] },
+    "hunter": { title: "Hunter", meta: "Commercial · DWRAPS · 2025",
+      text: "A Royal Enfield Hunter 350 after its DWRAPS treatment, shot in the studio before handover.",
+      stills: [["hunter-350", "A black Hunter 350 in the showroom"]] }
+  };
+
+  /* Nav (mobile) */
+  var nav = document.getElementById("nav"), menuBtn = document.getElementById("menuBtn");
+  menuBtn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open);
+    menuBtn.textContent = open ? "Close" : "Menu";
+  });
+  nav.querySelectorAll("ul a").forEach(function (a) {
+    a.addEventListener("click", function () { nav.classList.remove("open"); menuBtn.textContent = "Menu"; menuBtn.setAttribute("aria-expanded", false); });
+  });
+
+  /* Hero slideshow */
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var counter = document.getElementById("counter");
+  var title = document.getElementById("heroTitle"), meta = document.getElementById("heroMeta"), sub = document.getElementById("heroSub"), heroOpen = document.getElementById("heroOpen");
+  var idx = 0, timer;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  slides.forEach(function (s, i) {
+    var b = document.createElement("button");
+    b.setAttribute("aria-label", "Show " + s.dataset.title);
+    b.addEventListener("click", function () { go(i); });
+    counter.appendChild(b);
+  });
+  var bars = counter.querySelectorAll("button");
+  function go(i) {
+    slides[idx].classList.remove("on"); bars[idx].classList.remove("on");
+    idx = (i + slides.length) % slides.length;
+    var s = slides[idx];
+    s.classList.add("on");
+    void bars[idx].offsetWidth; bars[idx].classList.add("on");
+    title.classList.add("swap");
+    setTimeout(function () {
+      title.firstElementChild.textContent = s.dataset.title;
+      meta.textContent = s.dataset.meta; sub.textContent = s.dataset.sub;
+      heroOpen.dataset.project = s.dataset.project;
+      title.classList.remove("swap");
+    }, reduce ? 0 : 350);
+    clearTimeout(timer);
+    if (!reduce) timer = setTimeout(function () { go(idx + 1); }, 6000);
+  }
+  bars[0].classList.add("on");
+  if (!reduce) timer = setTimeout(function () { go(1); }, 6000);
+
+  /* Filters */
+  var cards = document.querySelectorAll(".card");
+  document.querySelectorAll(".filters button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".filters button").forEach(function (b) { b.setAttribute("aria-pressed", b === btn); });
+      var f = btn.dataset.filter;
+      cards.forEach(function (c) { c.hidden = !(f === "all" || c.dataset.cats.split(" ").indexOf(f) > -1); });
+    });
+  });
+
+  /* Lightbox */
+  var lb = document.getElementById("lb"), lbImg = document.getElementById("lbImg");
+  var cur = null, still = 0;
+  function render() {
+    var s = cur.stills[still];
+    lbImg.src = "images/" + s[0] + ".jpg"; lbImg.alt = s[1];
+    document.getElementById("lbCount").textContent = "Still " + String(still + 1).padStart(2, "0") + " / " + String(cur.stills.length).padStart(2, "0");
+    var multi = cur.stills.length > 1;
+    document.getElementById("lbPrev").hidden = !multi; document.getElementById("lbNext").hidden = !multi;
+  }
+  function open(key) {
+    cur = projects[key]; still = 0;
+    document.getElementById("lbTitle").textContent = cur.title;
+    document.getElementById("lbMeta").textContent = cur.meta;
+    document.getElementById("lbText").textContent = cur.text;
+    render();
+    if (lb.showModal) lb.showModal(); else lb.setAttribute("open", "");
+  }
+  function step(d) { if (!cur) return; still = (still + d + cur.stills.length) % cur.stills.length; render(); }
+  document.querySelectorAll("[data-project]").forEach(function (el) {
+    if (el.classList.contains("slide")) return;
+    el.addEventListener("click", function () { open(el.dataset.project); });
+  });
+  document.getElementById("lbClose").addEventListener("click", function () { lb.close(); });
+  document.getElementById("lbPrev").addEventListener("click", function () { step(-1); });
+  document.getElementById("lbNext").addEventListener("click", function () { step(1); });
+  lb.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft") step(-1); if (e.key === "ArrowRight") step(1); });
+})();
+</script>
+</body>
+</html>
