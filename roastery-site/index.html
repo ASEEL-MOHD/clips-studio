@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Roastery</title>
+<meta name="description" content="A small-batch roastery. Green coffee chosen by hand, roasted to order, shipped the week it's roasted.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header id="siteHeader">
+  <div class="strip mono">
+    <span><span class="dot"></span><span class="js-clock">--:--:--</span> <span class="js-tz">IST</span></span>
+    <div class="ticker-wrap">
+      <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+    <span class="ship-text">Shipping nationwide</span>
+  </div>
+  <nav class="wrap">
+    <a href="index.html" class="brand js-brand">Your Roastery</a>
+    <div class="links mono">
+      <a href="#story" class="hide-sm">About</a>
+      <a href="#process" class="hide-sm">Process</a>
+      <a href="#recognition" class="hide-sm">Recognition</a>
+      <a href="#contact" class="hide-sm">Contact</a>
+      <a href="#" class="pill magnetic js-wa"><span class="pill-full">Order on WhatsApp</span><span class="pill-short">WhatsApp</span></a>
+      <button id="menuToggle" class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="mi mi-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span>
+        <span class="mi mi-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div id="mobileMenu" class="mobile-menu">
+  <a href="#story">About</a>
+  <a href="#process">Process</a>
+  <a href="#recognition">Recognition</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<main>
+<header class="hero wrap">
+  <div class="hero-copy">
+    <h1 class="rv-hero">Slow coffee<em>for people who</em><em>notice things.</em></h1>
+    <p class="rv-hero d1">Green coffee chosen by hand, roasted to order, shipped the same week it leaves the drum.</p>
+    <a href="#" class="cta magnetic js-wa rv-hero d2">Order on WhatsApp <i>&rarr;</i></a>
+  </div>
+  <div class="hero-media rv-hero d3" aria-hidden="true">
+    <!-- Swap for a real photo: <img src="assets/hero.webp" alt="..."> -->
+    <div class="hero-art">
+      <svg viewBox="0 0 400 400" class="bean b-1"><path d="M200 40c90 0 150 70 150 160s-60 160-150 160S50 290 50 200 110 40 200 40z"/><path class="crease" d="M200 60c-40 50-40 230 0 280"/></svg>
+      <svg viewBox="0 0 400 400" class="bean b-2"><path d="M200 40c90 0 150 70 150 160s-60 160-150 160S50 290 50 200 110 40 200 40z"/><path class="crease" d="M200 60c-40 50-40 230 0 280"/></svg>
+      <svg viewBox="0 0 400 400" class="bean b-3"><path d="M200 40c90 0 150 70 150 160s-60 160-150 160S50 290 50 200 110 40 200 40z"/><path class="crease" d="M200 60c-40 50-40 230 0 280"/></svg>
+    </div>
+  </div>
+</header>
+
+<div class="marquee mono">
+  <div class="track">
+    <span>Roasted to order <b>&bull;</b> Cupped every batch <b>&bull;</b> Single origin <b>&bull;</b></span>
+    <span>Roasted to order <b>&bull;</b> Cupped every batch <b>&bull;</b> Single origin <b>&bull;</b></span>
+    <span>Roasted to order <b>&bull;</b> Cupped every batch <b>&bull;</b> Single origin <b>&bull;</b></span>
+    <span>Roasted to order <b>&bull;</b> Cupped every batch <b>&bull;</b> Single origin <b>&bull;</b></span>
+  </div>
+</div>
+
+<section class="statement pad wrap">
+  <h2 class="rv">Just a roaster. No café, no franchise.</h2>
+  <div class="scene-slot wide rv d1"><span>Image slot<br>The roaster at work</span></div>
+</section>
+
+<div class="glow-track" id="glowTrack">
+<div class="glow" id="glow" aria-hidden="true"></div>
+
+<section class="pad wrap" id="process" style="padding-top:0">
+  <div class="eyebrow mono rv">Seed to sip</div>
+  <div class="steps">
+    <div class="step rv">
+      <div class="step-img"><span>Image slot<br>Ripe cherries</span></div>
+      <span class="num mono">Stage 01</span><h3>Grow</h3>
+      <p>Good coffee begins with healthy soil and the hands that tend it.</p>
+    </div>
+    <div class="step rv d1">
+      <div class="step-img"><span>Image slot<br>Drying beds</span></div>
+      <span class="num mono">Stage 02</span><h3>Process</h3>
+      <p>Washed, natural or honey: the method shapes the cup.</p>
+    </div>
+    <div class="step rv d2">
+      <div class="step-img"><span>Image slot<br>Roaster drum</span></div>
+      <span class="num mono">Stage 03</span><h3>Roast</h3>
+      <p>Each profile is tuned by tasting, not by the clock.</p>
+    </div>
+    <div class="step rv d3">
+      <div class="step-img"><span>Image slot<br>Pour-over</span></div>
+      <span class="num mono">Stage 04</span><h3>Brew</h3>
+      <p>The final step is yours, and every bag ships with a recipe card.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pad wrap" id="story">
+  <div class="founder">
+    <div class="founder-img rv"><span>Image slot<br>Founder, cupping table</span></div>
+    <div>
+      <h2 class="rv d1">One person, every step from the farm to your cup.</h2>
+      <p class="rv d2"><span class="js-founder">The founder</span> learned coffee on the farm, then in processing, green grading, cupping and production roasting, and has trained baristas and café teams along the way. <span class="js-brand">Your Roastery</span> is where all of that comes together.</p>
+      <a href="#contact" class="textlink rv d3">Read the story <i>&rarr;</i></a>
+    </div>
+  </div>
+</section>
+</div>
+
+<section class="pad wrap" id="recognition">
+  <div class="eyebrow mono rv">Recognition</div>
+  <div class="awardrow rv">
+    <span class="yr mono">2026</span>
+    <h3>Award or placing</h3>
+    <p>Name of the competition, and a line on why it matters.</p>
+  </div>
+  <div class="awardrow rv d1">
+    <span class="yr mono">2026</span>
+    <h3>Certification</h3>
+    <p>What the qualification is and what it lets you do.</p>
+  </div>
+  <p class="mono rv d2 aside">One milestone on the way, not the finish line.</p>
+  <div class="scene-slot tall rv d2"><span>Image slot<br>Competition day</span></div>
+</section>
+
+<section class="closing wrap">
+  <div class="scene-slot wide rv"><span>Image or video slot<br>Hands, bags, or the roastery itself</span></div>
+  <h2 class="rv d1">Slow coffee, for people who notice things.</h2>
+</section>
+</main>
+
+<footer class="wrap" id="contact">
+  <div class="fcols">
+    <div>
+      <div class="flogo js-brand">Your Roastery</div>
+      <h3>Let's talk about coffee.</h3>
+      <a href="#" class="cta magnetic js-wa" style="margin-top:26px">Order on WhatsApp <i>&rarr;</i></a>
+    </div>
+    <div>
+      <span class="lbl mono">Enquiries</span>
+      <ul>
+        <li><a href="#" class="js-wa" data-wa-msg="Hi, I'd like to ask about wholesale.">Wholesale</a></li>
+        <li><a href="#story">About</a></li>
+        <li><a href="#" class="js-wa" data-wa-msg="Hi, I'd like to ask about training.">Training &amp; workshops</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="lbl mono">Reach</span>
+      <ul class="reach-icons">
+        <li>
+          <a href="#" class="js-wa reach-icon" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 20l1.4-3.6A7.7 7.7 0 1 1 12 19.7c-1.3 0-2.5-.3-3.6-.9L6 20z"/><path d="M9 10.2c0 3 2.8 5.8 5.8 5.8.6 0 1-.5.9-1l-.3-1.2c-.1-.4-.5-.6-.8-.5l-1.1.4c-.9-.5-1.6-1.2-2.1-2.1l.4-1.1c.1-.4 0-.7-.5-.8l-1.2-.3c-.5-.1-1 .3-1 .9z"/></svg></a>
+          <a href="#" class="js-wa reach-num js-phone">+00 00000 00000</a>
+        </li>
+        <li>
+          <a href="#" class="reach-icon js-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+          <a href="#" class="reach-num js-ig js-ig-text">@yourhandle</a>
+        </li>
+        <li>
+          <span class="reach-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 6.5l8 6.5 8-6.5"/></svg></span>
+          <a href="#" class="reach-num js-email">hello@example.com</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot mono">
+    <span>&copy; <span class="js-year">2026</span> <span class="js-brand">Your Roastery</span></span>
+    <span>Privacy &middot; Terms</span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
